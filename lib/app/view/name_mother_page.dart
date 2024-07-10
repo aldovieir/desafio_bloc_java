@@ -37,14 +37,14 @@ class NomeMotherPage extends StatelessWidget {
                                 : state.motherName),
                         onChanged: (texto) {
                           state.motherName = texto;
-                          if (state.motherName.isEmpty) {
-                            return state.motherName = 'Campo obrigatório';
+                          if (state.motherName!.isEmpty) {
+                             state.motherName = 'Campo obrigatório';
                           } else if (state.motherName
-                                  .trim()
+                                  !.trim()
                                   .split(' ')
                                   .length <=
                               1) {
-                            return state.motherName = 'Preencha Nome completo';
+                             state.motherName = 'Preencha Nome completo';
                           }
                           return null;
                         },

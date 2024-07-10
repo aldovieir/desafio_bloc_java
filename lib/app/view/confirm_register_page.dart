@@ -6,13 +6,12 @@ import 'package:teste_bloc/utils/animation_item.dart';
 import 'package:teste_bloc/widgets/logo_widget.dart';
 import '../app_import.dart';
 
-
-// PAGINA DE CONFIRMAÇÃO DE DADOS COM O BOTÃO DE TERMINAR 
+// PAGINA DE CONFIRMAÇÃO DE DADOS COM O BOTÃO DE TERMINAR
 // O REGISTO O QUE SALVA DE ACORDO COM O REPOSITÓRO SELECIONADO
 class ConfirmRegisterPage extends StatefulWidget {
-  final PageController pageController;
+  late PageController pageController;
 
-  const ConfirmRegisterPage({Key key, this.pageController}) : super(key: key);
+  ConfirmRegisterPage({Key? key,required this.pageController}) : super(key: key);
   @override
   _ConfirmRegisterPageState createState() => _ConfirmRegisterPageState();
 }
@@ -84,15 +83,15 @@ class _ConfirmRegisterPageState extends State<ConfirmRegisterPage> {
                                 : Tween(begin: 5, end: 1.0),
                             builder: (context, value, child) {
                               return Transform.scale(
-                                  scale: value,
+                                  ////scale: value,
                                   child: Text(
-                                    'CPF: ',
-                                    style: TextStyle(
-                                        fontSize: _width / 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                    textAlign: TextAlign.center,
-                                  ));
+                                'CPF: ',
+                                style: TextStyle(
+                                    fontSize: _width / 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ));
                             }),
                         TweenAnimationBuilder(
                             child: LogoWidget(),
@@ -104,13 +103,9 @@ class _ConfirmRegisterPageState extends State<ConfirmRegisterPage> {
                                 : Tween(begin: 1, end: 1.0),
                             builder: (context, value, child) {
                               return Transform.scale(
-                                scale: value,
+                                ////scale: value,
                                 child: Text(
-                                  state.cpf == 'CPF INVALIDO' ||
-                                          state.cpf == '' ||
-                                          state.cpf == null
-                                      ? 'Campo obrigatório'
-                                      : state.cpf,
+                                  state.cpf ?? 'Campo obrigatório',
                                   style: TextStyle(
                                       fontSize: _width / 22,
                                       color: Colors.white),
@@ -135,15 +130,15 @@ class _ConfirmRegisterPageState extends State<ConfirmRegisterPage> {
                                   : Tween(begin: 1, end: 1.0),
                               builder: (context, value, child) {
                                 return Transform.scale(
-                                    scale: value,
+                                    //scale: value,
                                     child: Text(
-                                      'Data de Nascimento: ',
-                                      style: TextStyle(
-                                          fontSize: _width / 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                      textAlign: TextAlign.center,
-                                    ));
+                                  'Data de Nascimento: ',
+                                  style: TextStyle(
+                                      fontSize: _width / 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ));
                               }),
                           TweenAnimationBuilder(
                               child: LogoWidget(),
@@ -155,16 +150,16 @@ class _ConfirmRegisterPageState extends State<ConfirmRegisterPage> {
                                   : Tween(begin: 1, end: 1.0),
                               builder: (context, value, child) {
                                 return Transform.scale(
-                                  scale: value,
+                                  //scale: value,
                                   child: Text(
                                     state.birthDate == null
                                         ? 'Campo obrigatório'
                                         : DateTime.now().year -
-                                                    state.birthDate.year <=
+                                                    state.birthDate!.year <=
                                                 18
                                             ? 'Necessário ser maior de idade'
                                             : DateFormat('dd-MM-yyyy ')
-                                                .format(state.birthDate)
+                                                .format(state.birthDate!)
                                                 .toString(),
                                     style: TextStyle(
                                         fontSize: _width / 22,
@@ -189,7 +184,7 @@ class _ConfirmRegisterPageState extends State<ConfirmRegisterPage> {
                                 : Tween(begin: 1, end: 1.0),
                             builder: (context, value, child) {
                               return Transform.scale(
-                                scale: value,
+                                //scale: value,
                                 child: Text(
                                   'Genero: ',
                                   style: TextStyle(
@@ -210,11 +205,9 @@ class _ConfirmRegisterPageState extends State<ConfirmRegisterPage> {
                                 : Tween(begin: 1, end: 1.0),
                             builder: (context, value, child) {
                               return Transform.scale(
-                                scale: value,
+                                //scale: value,
                                 child: Text(
-                                  state.genre == null
-                                      ? 'Campo obrigatório'
-                                      : state.genre,
+                                  state.genre ?? 'Campo obrigatório',
                                   style: TextStyle(
                                       fontSize: _width / 22,
                                       color: Colors.white),
@@ -239,7 +232,7 @@ class _ConfirmRegisterPageState extends State<ConfirmRegisterPage> {
                                   : Tween(begin: 0.9, end: 1.0),
                               builder: (context, value, child) {
                                 return Transform.scale(
-                                  scale: value,
+                                  //scale: value,
                                   child: Text(
                                     'Nome da mãe: ',
                                     style: TextStyle(
@@ -260,15 +253,9 @@ class _ConfirmRegisterPageState extends State<ConfirmRegisterPage> {
                                   : Tween(begin: 1, end: 1.0),
                               builder: (context, value, child) {
                                 return Transform.scale(
-                                  scale: value,
+                                  //scale: value,
                                   child: Text(
-                                    state.motherName == 'Campo obrigatório' ||
-                                            state.motherName == '' ||
-                                            state.motherName == null ||
-                                            state.motherName ==
-                                                'Preencha Nome completo'
-                                        ? 'Campo obrigatório'
-                                        : state.motherName,
+                                    state.motherName ?? 'Campo obrigatório',
                                     style: TextStyle(
                                         fontSize: _width / 22,
                                         color: Colors.white),
@@ -294,7 +281,7 @@ class _ConfirmRegisterPageState extends State<ConfirmRegisterPage> {
                   curve: Curves.elasticOut,
                   builder: (context, value, child) {
                     return Transform.scale(
-                      scale: value,
+                      //scale: value,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 80, vertical: 15),
@@ -312,15 +299,15 @@ class _ConfirmRegisterPageState extends State<ConfirmRegisterPage> {
                                   ],
                                 ),
                                 height: _height * 0.075,
-                                child: RaisedButton(
-                                  hoverColor: Colors.white,
-                                  hoverElevation: 0,
-                                  highlightColor: Colors.white,
-                                  highlightElevation: 0,
-                                  elevation: 0,
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40)),
+                                child: ElevatedButton(
+                                  // hoverColor: Colors.white,
+                                  // hoverElevation: 0,
+                                  // highlightColor: Colors.white,
+                                  // highlightElevation: 0,
+                                  // elevation: 0,
+                                  // color: Colors.white,
+                                  // shape: RoundedRectangleBorder(
+                                  //     borderRadius: BorderRadius.circular(40)),
                                   child: Text(
                                     'TERMINEI',
                                     style: TextStyle(
@@ -328,13 +315,9 @@ class _ConfirmRegisterPageState extends State<ConfirmRegisterPage> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    if (state.cpf == null ||
-                                        state.birthDate == null ||
-                                        DateTime.now().year -
-                                                state.birthDate.year <=
-                                            18 ||
-                                        state.genre == null ||
-                                        state.motherName == null) {
+                                    if (DateTime.now().year -
+                                            state.birthDate!.year <=
+                                        18) {
                                       showDialog(
                                           context: context,
                                           builder: (_) {
@@ -343,7 +326,7 @@ class _ConfirmRegisterPageState extends State<ConfirmRegisterPage> {
                                               title:
                                                   Text('Campos obrigatórios'),
                                               actions: [
-                                                FlatButton(
+                                                ElevatedButton(
                                                   onPressed: () {
                                                     Navigator.pop(context);
                                                   },

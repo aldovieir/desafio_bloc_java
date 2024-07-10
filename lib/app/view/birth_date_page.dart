@@ -32,39 +32,37 @@ class _BirthDatepageState extends State<BirthDatepage> {
               child: Text(
                 state.birthDate == null
                     ? ''
-                    : DateTime.now().year - state.birthDate.year <= 18
+                    : DateTime.now().year - state.birthDate!.year <= 18
                         ? 'Necessário ser maior de idade'
                         : DateFormat('dd-MM-yyyy ')
-                            .format(state.birthDate)
+                            .format(state.birthDate!)
                             .toString(),
                 style: TextStyle(color: Colors.white, fontSize: 21),
               ),
             ),
             SizedBox(height: 20),
-            RaisedButton(
-              hoverColor: Colors.red,
-              hoverElevation: 0,
-              highlightColor: Colors.white,
-              highlightElevation: 0,
-              elevation: 0,
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40)),
+            ElevatedButton(
+              // hoverColor: Colors.red,
+              // hoverElevation: 0,
+              // highlightColor: Colors.white,
+              // highlightElevation: 0,
+              // elevation: 0,
+              // color: Colors.white,
+              // shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.circular(40)),
               onPressed: () async {
                 var datePicked = await DatePicker.showSimpleDatePicker(
                   context,
                   titleText: 'Selecione a data do seu nascimento !!!',
                   textColor: Colors.blueAccent,
-                  initialDate: state.birthDate == null
-                      ? DateTime.now()
-                      : state.birthDate,
+                  initialDate: state.birthDate,
                   firstDate: DateTime(1960),
                   dateFormat: "dd-MMMM-yyyy",
                   locale: DateTimePickerLocale.pt_br,
                   looping: true,
                 );
                 setState(() {
-                  state.birthDate = datePicked;
+                  state.birthDate = datePicked!;
                 });
               },
               child: Text(

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:teste_bloc/app/cubit/list_cubit.dart';
 import 'package:teste_bloc/app/view/start_page.dart';
 
-import 'package:teste_bloc/app/view/splash_page.dart';
 import 'app/app_import.dart';
 import 'shared/repository/repository.dart';
 
@@ -29,7 +27,10 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => ListCubit(repository: Repository())..fetchList(),
-          child: ListPage(),
+          child: ListPage(
+            pageController: PageController(),
+            buttonColor: Colors.black,
+          ),
           lazy: false,
         ),
         BlocProvider(
@@ -54,16 +55,18 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => ListCubit(repository: Repository())..fetchList(),
-          child: ConfirmRegisterPage(),
+          child: ConfirmRegisterPage(
+            pageController: PageController(),
+          ),
           lazy: false,
         )
       ],
       child: MaterialApp(
           color: Colors.red,
           theme: ThemeData(
-              backgroundColor: Colors.blue,
-              primarySwatch: Colors.blue,
-              fontFamily: 'Google'),
+              fontFamily: 'Google',
+              colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
+                  .copyWith(surface: Colors.blue)),
           debugShowCheckedModeBanner: false,
           home: SplashPage()),
     );

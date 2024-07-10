@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:teste_bloc/app/cubit/list_cubit.dart';
 import 'package:teste_bloc/app/app_import.dart';
 import 'package:intl/intl.dart';
 import 'package:teste_bloc/utils/animation_item.dart';
 import 'package:teste_bloc/widgets/logo_widget.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
 
 //PAGINA QUE LISTA OS REGISTROS
 // COM O BOTÃO DE SE CADASTRAR E O QUE TROCA O REPOSITÓRIO
@@ -15,9 +13,9 @@ class ListPage extends StatelessWidget {
   final Color buttonColor;
 
   const ListPage({
-    Key key,
-    this.pageController,
-    this.buttonColor,
+    Key? key,
+    required this.pageController,
+    required this.buttonColor,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class ListPage extends StatelessWidget {
             return const Center(child: Text('Sem registros'));
           case ListStatus.success:
             return _ListView(
-                items: state.itens,
+                items: state.itens!,
                 pageController: pageController,
                 buttonColor: buttonColor);
           default:
@@ -42,7 +40,11 @@ class ListPage extends StatelessWidget {
 // ignore: must_be_immutable
 class _ListView extends StatefulWidget {
   bool selectedMock = false;
-  _ListView({Key key, this.items, this.pageController, this.buttonColor})
+  _ListView(
+      {Key? key,
+      required this.items,
+      required this.pageController,
+      required this.buttonColor})
       : super(key: key);
 
   final List<Register> items;
@@ -99,7 +101,10 @@ class __ListViewState extends State<_ListView> {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(
-                              left: 30, right: 30, top: _height * 0.28 + value),
+                              left: 30,
+                              right: 30,
+                              top: _height * 0.28 //+ value*//
+                              ),
                           child: AnimatedOpacity(
                             opacity: value == 20 ? 0 : 1,
                             duration: Duration(milliseconds: 700),
@@ -156,7 +161,7 @@ class __ListViewState extends State<_ListView> {
                                                               title: Text(
                                                                   'Deseja excluir esse cadastro ?'),
                                                               actions: [
-                                                                FlatButton(
+                                                                ElevatedButton(
                                                                   onPressed:
                                                                       () {
                                                                     if (state
@@ -179,7 +184,7 @@ class __ListViewState extends State<_ListView> {
                                                                   child: Text(
                                                                       'Ok'),
                                                                 ),
-                                                                FlatButton(
+                                                                ElevatedButton(
                                                                   onPressed:
                                                                       () {
                                                                     Navigator.pop(
@@ -218,7 +223,8 @@ class __ListViewState extends State<_ListView> {
                           : Tween(begin: 0.9, end: 1.0),
                       builder: (context, value, child) {
                         return Transform.scale(
-                          scale: value,
+                          //TODO VERIFICAR
+                          scale: value as double,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 40, vertical: 30),
@@ -236,25 +242,25 @@ class __ListViewState extends State<_ListView> {
                                       ],
                                     ),
                                     height: _height * 0.075,
-                                    child: RaisedButton(
-                                      onHighlightChanged: (press) {
-                                        setState(() {
-                                          if (press) {
-                                            _scaleHolder = 0.1;
-                                          } else {
-                                            _scaleHolder = 0.0;
-                                          }
-                                        });
-                                      },
-                                      hoverColor: Colors.red,
-                                      hoverElevation: 0,
-                                      highlightColor: Colors.white,
-                                      highlightElevation: 0,
-                                      elevation: 0,
-                                      color: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40)),
+                                    child: ElevatedButton(
+                                      // onHighlightChanged: (press) {
+                                      //   setState(() {
+                                      //     if (press) {
+                                      //       _scaleHolder = 0.1;
+                                      //     } else {
+                                      //       _scaleHolder = 0.0;
+                                      //     }
+                                      //   });
+                                      // },
+                                      // hoverColor: Colors.red,
+                                      // hoverElevation: 0,
+                                      // highlightColor: Colors.white,
+                                      // highlightElevation: 0,
+                                      // elevation: 0,
+                                      // color: Colors.white,
+                                      // shape: RoundedRectangleBorder(
+                                      //     borderRadius:
+                                      //         BorderRadius.circular(40)),
                                       onPressed: () {
                                         widget.pageController.animateToPage(1,
                                             duration:
@@ -283,8 +289,9 @@ class __ListViewState extends State<_ListView> {
                             findAnimation('button_scale', 0.0, animationlist),
                         builder: (context, value, child) {
                           return Transform.scale(
-                            scale: value,
-                            child: FlatButton(
+                            //TODO VERIFICAR
+                            scale: value as double,
+                            child: ElevatedButton(
                               onPressed: () {
                                 showDialog(
                                     context: context,
@@ -293,7 +300,7 @@ class __ListViewState extends State<_ListView> {
                                           child: AlertDialog(
                                         title: Text('Selecione repositório'),
                                         actions: [
-                                          FlatButton(
+                                          ElevatedButton(
                                             onPressed: () {
                                               state.mock = false;
 
@@ -306,14 +313,14 @@ class __ListViewState extends State<_ListView> {
                                             },
                                             child: Text('MOKC'),
                                           ),
-                                          FlatButton(
+                                          ElevatedButton(
                                             onPressed: () {
                                               state.mock = true;
                                               widget.selectedMock = true;
                                               context
                                                   .read<ListCubit>()
                                                   .fetchList();
-                                           
+
                                               Navigator.pop(context);
                                               state.mock = true;
                                             },
@@ -343,9 +350,9 @@ class __ListViewState extends State<_ListView> {
 
 class RegisterTile extends StatelessWidget {
   const RegisterTile({
-    Key key,
-    @required this.item,
-    this.onDeletePressed,
+    Key? key,
+    required this.item,
+    required this.onDeletePressed,
   }) : super(key: key);
 
   final Register item;
@@ -368,7 +375,7 @@ class RegisterTile extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  item.motherName,
+                  item.motherName!,
                   style: TextStyle(fontSize: 12, color: Colors.black),
                   textAlign: TextAlign.center,
                 ),
@@ -385,7 +392,7 @@ class RegisterTile extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  item.cpf,
+                  item.cpf!,
                   style: TextStyle(fontSize: 12, color: Colors.black),
                   textAlign: TextAlign.center,
                 ),
@@ -402,7 +409,7 @@ class RegisterTile extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  DateFormat('dd-MM-yyyy ').format(item.birthDate).toString(),
+                  DateFormat('dd-MM-yyyy ').format(item.birthDate!).toString(),
                   style: TextStyle(fontSize: 12, color: Colors.black),
                   textAlign: TextAlign.center,
                 ),
@@ -414,7 +421,7 @@ class RegisterTile extends StatelessWidget {
             ? const CircularProgressIndicator()
             : IconButton(
                 icon: const Icon(Icons.delete, color: Colors.red),
-                onPressed: () => onDeletePressed(item.id),
+                onPressed: () => onDeletePressed(item.id!),
               ),
       );
     });

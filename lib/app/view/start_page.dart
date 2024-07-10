@@ -11,17 +11,18 @@ import '../app_import.dart';
 // PAGINA BASE ONDE E FEITA TODA ANIMAÇÃO E A TRANSIÇÃO ENTRE TODAS AS PAGINAS
 // ignore: must_be_immutable
 class StartPage extends StatefulWidget {
-  PageController pageController;
   @override
   _StartPageState createState() => _StartPageState();
 }
 
 class _StartPageState extends State<StartPage> {
+  
+ late  final PageController pageController;
   List<AnimationRegister> animationlist = [];
-  Tween<double> postionLogo;
-  int _currentIndex;
+  late Tween<double> postionLogo;
+  int _currentIndex = 0;
   int _currentIndexColor = 0;
-  Tween _animacaoColor;
+  late Tween _animacaoColor;
   @override
   void initState() {
     super.initState();
@@ -36,7 +37,7 @@ class _StartPageState extends State<StartPage> {
           animationlist.add(animation);
         });
       });
-      widget.pageController = PageController(initialPage: 0);
+      pageController = PageController(initialPage: 0);
       postionLogo = Tween(begin: 0.0, end: 0.0);
       _animacaoColor = Tween(begin: 2.3, end: 2.3);
     });
@@ -59,12 +60,10 @@ class _StartPageState extends State<StartPage> {
                 duration: Duration(milliseconds: 300),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    gradient: _currentIndexColor != null
-                        ? listColors[_currentIndexColor]
-                        : null),
+                    gradient: listColors[_currentIndexColor]),
               ),
-              builder: (BuildContext context, value, Widget child) {
-                return Transform.scale(scale: value, child: child);
+              builder: (BuildContext context, value, child) {
+                return Transform.scale(scale: value as double, child: child);
               },
               tween: _animacaoColor,
             ),
@@ -72,7 +71,7 @@ class _StartPageState extends State<StartPage> {
               height: _height,
               width: _height,
               child: PageView(
-                controller: widget.pageController,
+                controller: pageController,
                 onPageChanged: (index) {
                   setState(() {
                     _currentIndex = index;
@@ -88,7 +87,7 @@ class _StartPageState extends State<StartPage> {
                 scrollDirection: Axis.vertical,
                 children: <Widget>[
                   ListPage(
-                    pageController: widget.pageController,
+                    pageController: pageController,
                     buttonColor: listColors[_currentIndexColor].colors[1],
                   ),
                   CpfPage(),
@@ -96,7 +95,7 @@ class _StartPageState extends State<StartPage> {
                   NomeMotherPage(),
                   GenrePage(),
                   ConfirmRegisterPage(
-                    pageController: widget.pageController,
+                    pageController: pageController,
                   )
                 ],
               ),
@@ -106,13 +105,11 @@ class _StartPageState extends State<StartPage> {
               curve:
                   _currentIndex == null ? Curves.elasticOut : Curves.easeInOut,
               tween: postionLogo,
-              builder: (BuildContext context, animation, Widget child) {
+              builder: (BuildContext context, animation, child) {
                 return AnimatedPositioned(
                   duration: Duration(milliseconds: 300),
                   top: _height * 0.10,
-                  right: _currentIndex == null || _currentIndex == 0
-                      ? _width / 2 - (100 / 2)
-                      : 15,
+                  right: _currentIndex == 0 ? _width / 2 - (100 / 2) : 15,
                   child: TweenAnimationBuilder(
                     child: LogoWidget(),
                     duration: Duration(milliseconds: 300),
@@ -120,7 +117,7 @@ class _StartPageState extends State<StartPage> {
                     tween: findAnimation('logo_scale', 0.0, animationlist),
                     builder: (context, value, child) {
                       return Transform.scale(
-                          scale: value - animation, child: child);
+                          scale: (value as double) - animation, child: child);
                     },
                   ),
                 );
@@ -128,7 +125,7 @@ class _StartPageState extends State<StartPage> {
             ),
             AnimatedPositioned(
               top: _height * 0.85,
-              right: _currentIndex == null || _currentIndex == 0 ? -40 : 10,
+              right: _currentIndex == 0 ? -40 : 10,
               width: 40,
               duration: Duration(milliseconds: 400),
               curve: Curves.easeOutCubic,
@@ -140,7 +137,7 @@ class _StartPageState extends State<StartPage> {
                       color: Colors.white54,
                     ),
                     onPressed: () {
-                      widget.pageController.animateToPage(_currentIndex - 1,
+                      pageController.animateToPage(_currentIndex - 1,
                           duration: Duration(milliseconds: 800),
                           curve: Curves.easeInCubic);
                     },
@@ -154,7 +151,7 @@ class _StartPageState extends State<StartPage> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      widget.pageController.animateToPage(_currentIndex + 1,
+                      pageController.animateToPage(_currentIndex + 1,
                           duration: Duration(milliseconds: 800),
                           curve: Curves.easeInCubic);
                     },
@@ -164,7 +161,7 @@ class _StartPageState extends State<StartPage> {
             ),
             AnimatedPositioned(
               top: _height * 0.15,
-              left: _currentIndex == null || _currentIndex == 0 ? -40 : 10,
+              left: _currentIndex == 0 ? -40 : 10,
               width: 40,
               duration: Duration(milliseconds: 400),
               curve: Curves.easeOutCubic,

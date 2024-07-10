@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cpf_cnpj_validator/cpf_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:brasil_fields/brasil_fields.dart';
@@ -15,7 +14,7 @@ class CpfPage extends StatelessWidget {
       return Padding(
         padding: EdgeInsets.only(left: 30, right: 30, top: _height * 0.23),
         child: SingleChildScrollView(
-                  child: Column(
+          child: Column(
             children: <Widget>[
               Text(
                 'Qual é o seu CPF ?',
@@ -41,11 +40,11 @@ class CpfPage extends StatelessWidget {
                           CpfInputFormatter(),
                         ],
                         onChanged: (texto) {
+                          CPFValidator();
                           if (CPFValidator.isValid(texto)) {
                             state.cpf = texto;
-                            return state.cpf;
                           } else {
-                            return state.cpf = 'CPF INVALIDO';
+                            state.cpf = 'CPF INVALIDO';
                           }
                         },
                         cursorColor: Colors.white,
@@ -69,7 +68,8 @@ class CpfPage extends StatelessWidget {
                             state.cpf == 'CPF INVALIDO'
                                 ? 'CPF INVALIDO'
                                 : '111.111.111-11',
-                            style: TextStyle(fontSize: 14, color: Colors.white38),
+                            style:
+                                TextStyle(fontSize: 14, color: Colors.white38),
                             textAlign: TextAlign.left,
                           ),
                         ],
@@ -84,5 +84,4 @@ class CpfPage extends StatelessWidget {
       );
     });
   }
-
 }

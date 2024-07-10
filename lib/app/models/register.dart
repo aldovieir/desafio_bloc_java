@@ -1,8 +1,7 @@
-import 'package:equatable/equatable.dart';
 import 'dart:convert';
 
 // ignore: must_be_immutable
-class Register extends Equatable {
+class Register {
   Register({
     this.id,
     this.cpf,
@@ -12,21 +11,21 @@ class Register extends Equatable {
     this.isDeleting = false,
   });
 
-  String id;
-  String cpf;
-  String motherName;
-  DateTime birthDate;
-  String genre;
+  String? id;
+  String? cpf;
+  String? motherName;
+  DateTime? birthDate;
+  String? genre;
 
   bool isDeleting;
 
   Register copyWith({
-    String id,
-    String cpf,
-    String motherName,
-    DateTime birthDate,
-    String genre,
-    bool isDeleting,
+    String? id,
+    String? cpf,
+    String? motherName,
+    DateTime? birthDate,
+    String? genre,
+    bool? isDeleting,
   }) {
     return Register(
       id: id ?? this.id,
@@ -47,9 +46,9 @@ class Register extends Equatable {
         id: json["id"] == null ? null : json["id"],
         cpf: json["cpf"] == null ? null : json["cpf"],
         motherName: json["nome_mae"] == null ? null : json["nome_mae"],
-        birthDate: DateTime.parse(json["data_nascimento"]) == null
+        birthDate: DateTime.parse(json["data_nascimento"].toString()) == null
             ? null
-            : DateTime.parse(json["data_nascimento"]),
+            : DateTime.parse(json["data_nascimento"].toString()),
         genre: json["genre"] == null ? null : json["genre"],
         isDeleting: false);
   }
@@ -58,26 +57,16 @@ class Register extends Equatable {
         "cpf": cpf == null ? null : cpf,
         "nome_mae": motherName == null ? null : motherName,
         "data_nascimento":
-            birthDate == null ? null : birthDate.toIso8601String(),
+            birthDate == null ? null : birthDate!.toIso8601String(),
         "genre": genre == null ? null : genre,
         "isDeleting": isDeleting,
       };
 
   static List<Register> fromJsonList(List list) {
-    if (list == null) return null;
     print(list);
     return list.map((item) {
       print(item);
       return Register.fromMap(item);
     }).toList();
   }
-
-  @override
-  List<Object> get props => [
-        id,
-        cpf,
-        motherName,
-        birthDate,
-        genre,
-      ];
 }

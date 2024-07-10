@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teste_bloc/utils/consts.dart';
 import 'package:teste_bloc/widgets/change_color.dart';
@@ -10,6 +9,7 @@ class GenrePage extends StatefulWidget {
   @override
   _GenrePageState createState() => _GenrePageState();
 }
+
 // PAGINA DE INCLUSÃO DE GENERO
 class _GenrePageState extends State<GenrePage> {
   @override

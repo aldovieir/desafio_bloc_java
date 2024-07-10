@@ -1,40 +1,16 @@
-# Desafio com Bloc
-Projeto criado com Bloc, animações com flutter.
+# desafio_bloc_java
 
-## PROJETO
+A new Flutter project.
 
-O projeto consiste em criar um cadastro com: CPF, DATA DE NASCIMENTO, GENERO, NOME DA MÃE.
+## Getting Started
 
-Com 2 repositórios uma para testes MOCKADOS, e outro para produção API REST usando: https://603c2f43f4333a0017b673f2.mockapi.io/TestBloc
+This project is a starting point for a Flutter application.
 
-Telas do projeto:
+A few resources to get you started if this is your first Flutter project:
 
-Lista de Registros.
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-![Alt text](https://github.com/aldovieir/desafio_bloc/blob/main/assets/lista.jpg?raw=true "LISTA DE REGISTROS")
-
-CPF.
-
-![Alt text](https://github.com/aldovieir/desafio_bloc/blob/main/assets/cpf.jpg?raw=true "CPF")
-
-DATA DE NASCIMENTO.
-
-![Alt text](https://github.com/aldovieir/desafio_bloc/blob/main/assets/nascimento.jpg?raw=true "DATA DE NASCIMENTO")
-
-NOME DA MÃE.
-
-![Alt text](https://github.com/aldovieir/desafio_bloc/blob/main/assets/nomemae.jpg?raw=true "NOME DA MÃE")
-
-GENERO.
-
-![Alt text](https://github.com/aldovieir/desafio_bloc/blob/main/assets/genero.jpg?raw=true "GENERO")
-
-CONFIRMAÇÃO DOS DADOS.
-
-![Alt text](https://github.com/aldovieir/desafio_bloc/blob/main/assets/confirm.jpg?raw=true "CONFIRMAÇÃO DOS DADOS")
-
-
-
-
-
-
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

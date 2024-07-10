@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ChangeColor extends StatelessWidget {
-  final LinearGradient linearGradient;
+  final LinearGradient? linearGradient;
 
-  final int index;
-  final double offset;
-  final VoidCallback onTap;
-  final String genre;
-  final int selected;
+  final int? index;
+  final double? offset;
+  final VoidCallback? onTap;
+  final String? genre;
+  final int? selected;
 
   const ChangeColor(
-      {Key key,
+      {Key? key,
       this.offset,
       this.index,
       this.onTap,
@@ -27,7 +27,7 @@ class ChangeColor extends StatelessWidget {
         onTap: onTap,
         child: Center(
           child: Container(
-            child: Center(child: Text(genre)),
+            child: Center(child: Text(genre!)),
             height: 80,
             width: 80,
             decoration: BoxDecoration(

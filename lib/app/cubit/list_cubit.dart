@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:teste_bloc/app/models/register.dart';
-import 'package:meta/meta.dart';
 import 'package:teste_bloc/shared/repository/repository.dart';
 part 'list_state.dart';
 
 // CLASSE QUE COMUNICA O ESTADOS DO APP AO REPOSITÓRIO
 class ListCubit extends Cubit<ListState> {
-  ListCubit({@required this.repository}) : super(ListState.loading());
+  ListCubit({required this.repository}) : super(ListState.loading());
 
   final Repository repository;
 
@@ -42,13 +40,13 @@ class ListCubit extends Cubit<ListState> {
   Future<void> addRegister() async {
     Register item = Register(
       cpf: state.cpf,
-      birthDate: state.birthDate,
-      genre: state.genre,
-      motherName: state.motherName,
+      birthDate: state.birthDate!,
+      genre: state.genre!,
+      motherName: state.motherName!,
     );
     await repository.addRegister(item).then((list) {
       fetchList();
-      emit(ListState.success(state.itens, true));
+      emit(ListState.success(state.itens!, true));
     });
   }
 
@@ -60,14 +58,14 @@ class ListCubit extends Cubit<ListState> {
 
 // DELETA O REGISTRO MOCKADO
   Future<void> deleteRegister(String id) async {
-    final deleteInProgress = state.itens.map((item) {
+    final deleteInProgress = state.itens!.map((item) {
       return item.id == id ? item.copyWith(isDeleting: true) : item;
     }).toList();
 
     emit(ListState.success(deleteInProgress, false));
 
     unawaited(repository.deleteRegister(id).then((_) {
-      final deleteSuccess = List.of(state.itens)
+      final deleteSuccess = List.of(state.itens!)
         ..removeWhere((element) => element.id == id);
       emit(ListState.success(deleteSuccess, false));
     }));
@@ -76,14 +74,14 @@ class ListCubit extends Cubit<ListState> {
 
 // ADICONA O REGISTRO MOCKADO
   addRegisterMock() {
-    state.itens.add(Register(
+    state.itens!.add(Register(
       id: Random().nextInt(10).toString(),
       cpf: state.cpf,
-      birthDate: state.birthDate,
-      genre: state.genre,
-      motherName: state.motherName,
+      birthDate: state.birthDate!,
+      genre: state.genre!,
+      motherName: state.motherName!,
     ));
 
-    emit(ListState.success(state.itens, false));
+    emit(ListState.success(state.itens!, false));
   }
 }
